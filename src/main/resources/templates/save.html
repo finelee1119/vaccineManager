@@ -1,0 +1,65 @@
+<!--save.html-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>백신예약</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center">백신예약</h2>
+    <form action="/save" method="post" class="mt-4">
+        <div class="form-group">
+            <label for="resvNo">예약번호</label>
+            <input type="text" id="resvNo" name="resvNo" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label for="jumin">주민번호</label>
+            <input type="text" id="jumin" name="jumin" class="form-control" placeholder="ex) 790101-1111111" required>
+        </div>
+        <div class="form-group">
+            <label for="vCode">백신코드</label>
+            <select id="vCode" name="vCode" class="form-control" required>
+                <option value="V01">V01</option>
+                <option value="V02">V02</option>
+                <option value="V03">V03</option>
+                <!-- 필요한 다른 옵션들을 추가 -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label>병원코드</label>
+            <div class="form-check">
+                <input type="radio" id="hospCodeH01" name="hospCode" value="H01" class="form-check-input" required>
+                <label for="hospCodeH01" class="form-check-label">H01</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="hospCodeH02" name="hospCode" value="H02" class="form-check-input" required>
+                <label for="hospCodeH02" class="form-check-label">H02</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="hospCodeH03" name="hospCode" value="H03" class="form-check-input" required>
+                <label for="hospCodeH03" class="form-check-label">H03</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="hospCodeH04" name="hospCode" value="H04" class="form-check-input" required>
+                <label for="hospCodeH04" class="form-check-label">H04</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="resvDate">예약날짜</label>
+            <input type="text" id="resvDate" name="resvDate" class="form-control" placeholder="yyyyMMdd" required>
+        </div>
+        <div class="form-group">
+            <label for="resvTime">예약시간</label>
+            <input type="text" id="resvTime" name="resvTime" class="form-control" placeholder="4자리 숫자의 24시간제" required>
+        </div>
+        <button type="submit" class="btn btn-primary">예약 등록</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

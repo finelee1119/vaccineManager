@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vaccineManager.mapper.VaccResvMapper">
+    <!-- 백신 등록 -->
+    <insert id="save" parameterType="vaccResvDto" useGeneratedKeys="true" keyProperty="resvNo">
+        INSERT INTO vaccresv(resv_no, jumin, hosp_code, resv_date, resv_time, v_code)
+        VALUES(#{resvNo}, #{jumin}, #{hospCode}, #{resvDate}, #{resvTime}, #{vCode})
+    </insert>
+
+
+
+</mapper>
