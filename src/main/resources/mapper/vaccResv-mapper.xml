@@ -5,7 +5,7 @@
     <!-- 백신 등록 -->
     <insert id="save" parameterType="vaccResvDto" useGeneratedKeys="true" keyProperty="resvNo">
         INSERT INTO vaccresv(resv_no, jumin, hosp_code, resv_date, resv_time, v_code)
-        VALUES(#{resvNo}, #{jumin}, #{hospCode}, #{resvDate}, #{resvTime}, #{vCode})
+        VALUES(#{vaccResvDto.resvNo}, #{vaccResvDto.jumin}, #{vaccResvDto.hospCode}, #{vaccResvDto.resvDate}, #{vaccResvDto.resvTime}, #{vaccResvDto.vCode})
     </insert>
 
 
