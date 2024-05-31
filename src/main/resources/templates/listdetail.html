@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>백신예약조회 결과</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .centered-message {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{fragments/header :: header}"></th:block>
+<th:block th:replace="~{fragments/nav :: nav}"></th:block>
+
+<div class="container mt-4">
+    <h2 class="text-center">백신예약조회 결과</h2>
+    <div th:if="${noResults}" class="centered-message">
+        <p>해당 검색어로 조회된 결과가 없습니다.</p>
+        <a th:href="@{/}" class="btn btn-primary mt-3">홈으로</a>
+    </div>
+    <div th:if="${vaccResv != null}" class="table-container">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">항목</th>
+                <th scope="col">내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">예약번호</th>
+                <td th:text="${vaccResv.resvNo}"></td>
+            </tr>
+            <tr>
+                <th scope="row">성명</th>
+                <td th:text="${jumin.name}"></td>
+            </tr>
+            <tr>
+                <th scope="row">성별</th>
+                <td th:text="${gender}"></td>
+            </tr>
+            <tr>
+                <th scope="row">병원이름</th>
+                <td th:text="${hospital.hospName}"></td>
+            </tr>
+            <tr>
+                <th scope="row">예약날짜</th>
+                <td th:text="${formattedDate}"></td>
+            </tr>
+            <tr>
+                <th scope="row">예약시간</th>
+                <td th:text="${formattedTime}"></td>
+            </tr>
+            <tr>
+                <th scope="row">백신코드</th>
+                <td th:text="${vaccineName}"></td>
+            </tr>
+            <tr>
+                <th scope="row">병원지역</th>
+                <td th:text="${hospitalRegion}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

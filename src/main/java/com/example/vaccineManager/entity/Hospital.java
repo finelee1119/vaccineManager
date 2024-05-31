@@ -9,15 +9,12 @@ import lombok.Data;
 @Data
 public class Hospital {
     @Id
-    @Column(length = 4)
-    private String hostCode;
-
-    @Column(length = 40)
-    private String hostName;
-
-    @Column(length = 15)
-    private String hostTel;
-
-    @Column(length = 2)
-    private String hostAddr;
+    @Column(name = "hosp_code")
+    private String hospCode;
+    @Column(name = "hosp_name")
+    private String hospName;
+    @Column(name = "hosp_tel")
+    private String hospTel;
+    @Column(name = "hosp_addr")
+    private String hospAddr;
 }

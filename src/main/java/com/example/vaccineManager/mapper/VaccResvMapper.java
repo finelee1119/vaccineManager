@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface VaccResvMapper {
     void save(@Param("vaccResvDto") VaccResvDto vaccResvDto);
+
+    VaccResvDto searchByKeyword(@Param("keyword") String keyword);
 }

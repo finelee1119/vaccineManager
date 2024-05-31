@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.vaccineManager.mapper.VaccResvMapper">
-    <!-- 백신 등록 -->
+    <!-- 백신예약 등록 -->
     <insert id="save" parameterType="vaccResvDto" useGeneratedKeys="true" keyProperty="resvNo">
-        INSERT INTO vaccresv(resv_no, jumin, hosp_code, resv_date, resv_time, v_code)
-        VALUES(#{vaccResvDto.resvNo}, #{vaccResvDto.jumin}, #{vaccResvDto.hospCode}, #{vaccResvDto.resvDate}, #{vaccResvDto.resvTime}, #{vaccResvDto.vCode})
+        INSERT INTO vaccresv(jumin, hosp_code, resv_date, resv_time, v_code)
+        VALUES(#{vaccResvDto.jumin}, #{vaccResvDto.hospCode}, #{vaccResvDto.resvDate}, #{vaccResvDto.resvTime}, #{vaccResvDto.vCode})
     </insert>
-
-
+    <!-- 백신예약 조회 -->
+    <select id="searchByKeyword" parameterType="String" resultType="com.example.vaccineManager.dto.VaccResvDto">
+        SELECT resv_no as resvNo, jumin, hosp_code as hospCode, resv_date as resvDate, DATE_FORMAT(resv_time, '%H:%i') as resvTime, v_code as vCode
+        FROM vaccresv
+        WHERE resv_no = #{keyword}
+        OR jumin IN (SELECT jumin FROM jumin WHERE name LIKE CONCAT('%', #{keyword}, '%'))
+    </select>
 
 </mapper>

@@ -8,18 +8,18 @@ CREATE TABLE IF NOT EXISTS jumin (
 
 -- 병원정보 hospital 테이블 생성
 CREATE TABLE IF NOT EXISTS hospital (
-    host_code VARCHAR(4) NOT NULL PRIMARY KEY,
-    host_name VARCHAR(40),
-    host_tel VARCHAR(15),
-    host_addr VARCHAR(2)
+    hosp_code VARCHAR(4) NOT NULL PRIMARY KEY,
+    hosp_name VARCHAR(40),
+    hosp_tel VARCHAR(15),
+    hosp_addr VARCHAR(2)
 );
 
 -- 백신예약정보 vaccresv 테이블 생성
 CREATE TABLE IF NOT EXISTS vaccresv (
-    resv_no BIGINT NOT NULL PRIMARY KEY,
+    resv_no BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     jumin VARCHAR(20),
     hosp_code VARCHAR(4),
     resv_date DATE,
-    resv_time VARCHAR(4),
+    resv_time TIME(4),
     v_code VARCHAR(4)
 );

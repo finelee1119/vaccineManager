@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -27,8 +28,8 @@ public class VaccResvDto {
     private LocalDate resvDate; //예약날짜
 
     @NotNull(message = "예약시간을 입력해주세요")
-    @DateTimeFormat(pattern = "HHmm")
-    private LocalTime resvTime; //예약시간
+//    @DateTimeFormat(pattern = "HHmm")
+    private String resvTime; //예약시간
 
     @NotBlank(message = "백신코드를 선택해주세요")
     private String vCode; //백신코드

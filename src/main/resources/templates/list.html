@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>백신예약조회</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<th:block th:replace="~{fragments/header :: header}"></th:block>
+<th:block th:replace="~{fragments/nav :: nav}"></th:block>
+
+<div class="container d-flex flex-column align-items-center">
+    <h2 class="mt-4 text-center">백신예약조회</h2>
+    <form th:action="@{/list/detail}" method="get" class="form-inline d-flex flex-column align-items-center">
+        <div class="form-group mb-2 d-flex align-items-center">
+            <label for="searchKeyword" class="mr-2">검색어</label>
+            <input type="text" class="form-control" id="searchKeyword" name="searchKeyword" placeholder="예약번호 또는 성명을 입력해주세요" style="width: 400px;">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mb-2 ml-2">조회하기</button>
+            <a th:href="@{`/`}" class="btn btn-secondary mb-2 ml-2">홈으로</a>
+        </div>
+    </form>
+</div>
+
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
