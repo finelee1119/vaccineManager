@@ -15,6 +15,8 @@ public class VaccResv {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resv_no")
     private Long resvNo; //예약번호
+    @Column(name = "name")
+    private String name; //이름
     @Column(name = "jumin", length = 20)
     private String jumin; //주민번호
     @Column(name = "hosp_code", length = 4)

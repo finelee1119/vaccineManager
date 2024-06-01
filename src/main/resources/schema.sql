@@ -20,6 +20,6 @@ CREATE TABLE IF NOT EXISTS vaccresv (
     jumin VARCHAR(20),
     hosp_code VARCHAR(4),
     resv_date DATE,
-    resv_time TIME(4),
+    resv_time VARCHAR(4),
     v_code VARCHAR(4)
 );

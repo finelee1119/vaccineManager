@@ -4,15 +4,28 @@
 <mapper namespace="com.example.vaccineManager.mapper.VaccResvMapper">
     <!-- 백신예약 등록 -->
     <insert id="save" parameterType="vaccResvDto" useGeneratedKeys="true" keyProperty="resvNo">
-        INSERT INTO vaccresv(jumin, hosp_code, resv_date, resv_time, v_code)
-        VALUES(#{vaccResvDto.jumin}, #{vaccResvDto.hospCode}, #{vaccResvDto.resvDate}, #{vaccResvDto.resvTime}, #{vaccResvDto.vCode})
+        INSERT INTO vaccresv(name, jumin, hosp_code, resv_date, resv_time, v_code)
+        VALUES(#{vaccResvDto.name}, #{vaccResvDto.jumin}, #{vaccResvDto.hospCode}, #{vaccResvDto.resvDate}, #{vaccResvDto.resvTime}, #{vaccResvDto.vCode})
     </insert>
     <!-- 백신예약 조회 -->
     <select id="searchByKeyword" parameterType="String" resultType="com.example.vaccineManager.dto.VaccResvDto">
-        SELECT resv_no as resvNo, jumin, hosp_code as hospCode, resv_date as resvDate, DATE_FORMAT(resv_time, '%H:%i') as resvTime, v_code as vCode
+        SELECT resv_no as resvNo, jumin, hosp_code as hospCode, resv_date as resvDate, resv_time as resvTime, v_code as vCode
         FROM vaccresv
         WHERE resv_no = #{keyword}
-        OR jumin IN (SELECT jumin FROM jumin WHERE name LIKE CONCAT('%', #{keyword}, '%'))
+           OR jumin = #{keyword}
     </select>
-
+    <!-- 백신예약 현황 조회 -->
+    <select id="getReservationStatus" resultType="com.example.vaccineManager.dto.VaccResvStatusDto">
+        SELECT h.hosp_addr as hospitalRegion,
+               CASE h.hosp_addr
+                   WHEN '10' THEN '서울'
+                   WHEN '20' THEN '대전'
+                   WHEN '30' THEN '대구'
+                   WHEN '40' THEN '광주'
+                   END as hospitalRegionName,
+               COUNT(v.resv_no) as reservationCount
+        FROM vaccresv v
+                 JOIN hospital h ON v.hosp_code = h.hosp_code
+        GROUP BY h.hosp_addr
+    </select>
 </mapper>

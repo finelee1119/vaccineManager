@@ -17,6 +17,9 @@ import java.time.LocalTime;
 public class VaccResvDto {
     private Long resvNo; //예약번호
 
+    @NotBlank(message = "이름을 입력해주세요")
+    private String name; //이름
+
     @NotBlank(message = "주민번호를 입력해주세요")
     private String jumin; //주민번호
 
@@ -27,8 +30,7 @@ public class VaccResvDto {
     @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate resvDate; //예약날짜
 
-    @NotNull(message = "예약시간을 입력해주세요")
-//    @DateTimeFormat(pattern = "HHmm")
+    @NotBlank(message = "예약시간을 입력해주세요")
     private String resvTime; //예약시간
 
     @NotBlank(message = "백신코드를 선택해주세요")

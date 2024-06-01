@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>백신예약현황</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .status-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .status-table {
+            margin-top: 20px;
+        }
+        .total-row {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{fragments/header :: header}"></th:block>
+<th:block th:replace="~{fragments/nav :: nav}"></th:block>
+
+<div class="container mt-4 status-container">
+    <h2 class="text-center">백신예약현황</h2>
+    <div class="status-table">
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">병원지역</th>
+                <th scope="col">병원지역명</th>
+                <th scope="col">접종예약건수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="status : ${statusList}">
+                <td th:text="${status.hospitalRegion}"></td>
+                <td th:text="${status.hospitalRegionName}"></td>
+                <td th:text="${status.reservationCount}"></td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2">총합</td>
+                <td th:text="${totalReservationCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

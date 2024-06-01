@@ -3,6 +3,7 @@ package com.example.vaccineManager.controller;
 import com.example.vaccineManager.dto.HospitalDto;
 import com.example.vaccineManager.dto.JuminDto;
 import com.example.vaccineManager.dto.VaccResvDto;
+import com.example.vaccineManager.dto.VaccResvStatusDto;
 import com.example.vaccineManager.service.HospitalService;
 import com.example.vaccineManager.service.JuminService;
 import com.example.vaccineManager.service.VaccResvService;
@@ -14,6 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class VaccResvController {
@@ -52,7 +57,7 @@ public class VaccResvController {
         return "list";
     }
 
-    // 예약 조회 결과 페이지
+    //백신예약 조회 결과(조건부)
     @GetMapping("/list/detail")
     public String listDetail(@RequestParam(value = "searchKeyword", required = false) String searchKeyword, Model model) {
         if (searchKeyword != null && !searchKeyword.isEmpty()) {
@@ -71,8 +76,7 @@ public class VaccResvController {
                 String formattedDate = vaccResv.getResvDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
                 model.addAttribute("formattedDate", formattedDate);
 
-//                String formattedTime = vaccResv.getResvTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                String formattedTime = vaccResv.getResvTime();
+                String formattedTime = getFormattedTime(vaccResv.getResvTime());
                 model.addAttribute("formattedTime", formattedTime);
 
                 String hospitalRegion = getHospitalRegion(hospital.getHospAddr());
@@ -97,6 +101,15 @@ public class VaccResvController {
             return "여";
         }
         return "";
+    }
+
+    public String getFormattedTime(String time) {
+        if (time == null || time.length() != 4) {
+            return "Invalid Time";
+        }
+        String hour = time.substring(0, 2);
+        String minute = time.substring(2, 4);
+        return hour + ":" + minute;
     }
 
     private String getHospitalRegion(String hostAddr) {
@@ -127,4 +140,42 @@ public class VaccResvController {
         }
     }
 
+
+    //백신예약 현황 조회(지역별)
+    @GetMapping("/status")
+    public String reservationStatus(Model model) {
+        List<VaccResvStatusDto> statusList = vaccResvService.getReservationStatus();
+
+        // 미리 정의된 병원 지역과 이름
+        String[][] regions = {
+                {"10", "서울"},
+                {"20", "대전"},
+                {"30", "대구"},
+                {"40", "광주"}
+        };
+
+        List<VaccResvStatusDto> completeStatusList = new ArrayList<>();
+        int totalReservationCount = 0;
+
+        for (String[] region : regions) {
+            String regionCode = region[0];
+            String regionName = region[1];
+            int reservationCount = 0;
+
+            // 예약 현황 데이터를 반영하여 예약 건수를 업데이트합니다.
+            for (VaccResvStatusDto status : statusList) {
+                if (status.getHospitalRegion().equals(regionCode)) {
+                    reservationCount = status.getReservationCount();
+                    break;
+                }
+            }
+
+            completeStatusList.add(new VaccResvStatusDto(regionCode, regionName, reservationCount));
+            totalReservationCount += reservationCount;
+        }
+
+        model.addAttribute("statusList", completeStatusList);
+        model.addAttribute("totalReservationCount", totalReservationCount);
+        return "status";
+    }
 }

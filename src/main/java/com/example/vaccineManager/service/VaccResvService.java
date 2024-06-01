@@ -1,6 +1,7 @@
 package com.example.vaccineManager.service;
 
 import com.example.vaccineManager.dto.VaccResvDto;
+import com.example.vaccineManager.dto.VaccResvStatusDto;
 import com.example.vaccineManager.mapper.VaccResvMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class VaccResvService {
     //백신예약 조회(조건부)
     public VaccResvDto searchByKeyword(String keyword) {
         return vaccResvMapper.searchByKeyword(keyword);
+    }
+
+    //백신예약 현황 조회(지역별)
+    public List<VaccResvStatusDto> getReservationStatus() {
+        return vaccResvMapper.getReservationStatus();
     }
 }
